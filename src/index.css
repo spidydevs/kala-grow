@@ -1,0 +1,477 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.75rem;
+    
+    /* Green theme colors - consistent branding */
+    --taskade-accent: 142 76% 36%;
+    --taskade-accent-hover: 142 76% 32%;
+    --taskade-surface: 142 10% 98%;
+    --taskade-surface-hover: 142 15% 94%;
+    --taskade-border: 142 20% 90%;
+    --sidebar-width: 280px;
+    
+    /* Primary green overrides - NO BLUE ANYWHERE */
+    --primary: 142 76% 36%;
+    --primary-foreground: 0 0% 98%;
+    --ring: 142 76% 36%;
+    
+    /* Bronze color for light mode readability */
+    --bronze-light: 28 100% 35%;
+    --bronze-dark: 28 100% 50%;
+    
+    /* Toast variables */
+    --toast-bg: #ffffff;
+    --toast-color: #374151;
+    --toast-border: #e5e7eb;
+  }
+
+  .dark {
+    /* True Black Taskade-inspired Dark Theme */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 0 0% 95%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 0 0% 8%;
+    --accent-foreground: 0 0% 95%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 12%;
+    --input: 0 0% 8%;
+    --ring: 0 0% 83.1%;
+    
+    /* Green theme colors for dark mode */
+    --taskade-accent: 142 86% 45%;
+    --taskade-accent-hover: 142 86% 50%;
+    --taskade-surface: 142 20% 6%;
+    --taskade-surface-hover: 142 20% 10%;
+    --taskade-border: 142 30% 15%;
+    
+    /* Primary green overrides for dark mode */
+    --primary: 142 86% 45%;
+    --primary-foreground: 0 0% 0%;
+    --ring: 142 86% 45%;
+    --accent: 142 20% 10%;
+    --accent-foreground: 142 86% 45%;
+    
+    /* Toast variables for dark mode */
+    --toast-bg: #0a0a0a;
+    --toast-color: #f1f5f9;
+    --toast-border: #1e293b;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Improved scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 3px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+
+  /* Selection styling with green theme */
+  ::selection {
+    background: hsl(var(--taskade-accent) / 0.2);
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer components {
+  /* Taskade-inspired Card Variants */
+  .card-taskade {
+    @apply bg-card border border-border rounded-xl shadow-sm backdrop-blur-sm;
+    @apply hover:shadow-md hover:border-border/60;
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .card-taskade-elevated {
+    @apply card-taskade shadow-lg;
+    @apply dark:shadow-black/20;
+  }
+
+  .card-taskade-interactive {
+    @apply card-taskade cursor-pointer;
+    @apply hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1;
+    @apply active:scale-[0.98] active:translate-y-0;
+    @apply transition-all duration-200 ease-out;
+  }
+
+  /* Taskade-inspired Buttons */
+  .btn-taskade {
+    @apply inline-flex items-center justify-center rounded-lg text-sm font-medium;
+    @apply transition-all duration-200 ease-out;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
+    @apply disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-taskade-primary {
+    @apply btn-taskade bg-gradient-to-r from-green-600 to-green-600;
+    @apply text-white shadow-lg hover:shadow-xl;
+    @apply hover:scale-105 active:scale-95;
+    @apply dark:from-green-500 dark:to-green-500;
+  }
+
+  .btn-taskade-secondary {
+    @apply btn-taskade bg-card border border-border;
+    @apply hover:bg-accent hover:border-accent-foreground/20;
+    @apply text-foreground;
+  }
+
+  .btn-taskade-ghost {
+    @apply btn-taskade text-muted-foreground;
+    @apply hover:bg-accent hover:text-accent-foreground;
+  }
+
+  /* Sidebar Styling - Fixed with proper scrolling */
+  .sidebar-taskade {
+    @apply fixed left-0 top-0 z-50 h-screen;
+    width: var(--sidebar-width);
+    @apply bg-card border-r border-border;
+    @apply shadow-lg dark:shadow-black/20;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow: hidden;
+  }
+
+  .sidebar-item {
+    @apply flex items-center gap-3 px-3 py-2.5 mx-2 rounded-xl text-sm font-medium;
+    @apply transition-all duration-200 ease-out;
+    @apply hover:bg-accent hover:text-accent-foreground;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
+  }
+
+  .sidebar-item-active {
+    @apply sidebar-item bg-gradient-to-r from-green-500/10 to-green-500/10;
+    @apply text-green-600 dark:text-green-400;
+    @apply border border-green-200/50 dark:border-green-800/50;
+    @apply shadow-sm;
+  }
+
+  /* Kanban Board Styling */
+  .kanban-column {
+    @apply bg-card/50 backdrop-blur-sm rounded-xl border border-border/50;
+    @apply min-h-[600px] p-4 space-y-3;
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .kanban-card {
+    @apply bg-card rounded-lg border border-border p-4 space-y-3;
+    @apply shadow-sm hover:shadow-md;
+    @apply transition-all duration-200 ease-out;
+    @apply hover:scale-[1.02] hover:-translate-y-0.5;
+    @apply cursor-pointer;
+  }
+
+  .kanban-card-dragging {
+    @apply kanban-card opacity-50 rotate-2 scale-105;
+    @apply shadow-2xl dark:shadow-black/40;
+  }
+
+  /* Focus Timer Styling */
+  .focus-timer {
+    @apply bg-gradient-to-br from-green-50 to-green-50;
+    @apply dark:from-green-950/30 dark:to-green-950/30;
+    @apply border-2 border-green-200 dark:border-green-800/50;
+    @apply rounded-2xl p-6 text-center;
+    @apply shadow-lg hover:shadow-xl;
+    @apply transition-all duration-300 ease-out;
+  }
+
+  /* Glass Morphism Effects */
+  .glass-light {
+    @apply bg-white/80 backdrop-blur-xl border border-white/20;
+    @apply shadow-lg dark:shadow-black/20;
+  }
+
+  .glass-dark {
+    @apply bg-black/80 backdrop-blur-xl border border-white/10;
+    @apply shadow-lg;
+  }
+
+  .glass {
+    @apply glass-light dark:glass-dark;
+  }
+
+  /* Gradient Text Effects */
+  .text-gradient {
+    @apply bg-gradient-to-r from-green-600 to-green-600 bg-clip-text text-transparent;
+    @apply dark:from-green-400 dark:to-green-400;
+  }
+
+  .text-gradient-success {
+    @apply bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent;
+    @apply dark:from-green-400 dark:to-emerald-400;
+  }
+
+  .text-gradient-warning {
+    @apply bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent;
+    @apply dark:from-orange-400 dark:to-red-400;
+  }
+
+  /* Animation Classes */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+
+  .animate-bounce-subtle {
+    animation: bounceSubtle 0.6s ease-out;
+  }
+
+  /* Loading States */
+  .loading-shimmer {
+    @apply relative overflow-hidden bg-muted rounded;
+  }
+
+  .loading-shimmer::after {
+    @apply absolute inset-0 -translate-x-full;
+    @apply bg-gradient-to-r from-transparent via-white/20 to-transparent;
+    content: '';
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Status Indicators */
+  .status-dot {
+    @apply w-2 h-2 rounded-full;
+  }
+
+  .status-todo {
+    @apply status-dot bg-gray-400;
+  }
+
+  .status-in-progress {
+    @apply status-dot bg-green-500;
+  }
+
+  .status-completed {
+    @apply status-dot bg-green-500;
+  }
+
+  .status-overdue {
+    @apply status-dot bg-red-500;
+  }
+
+  /* Priority Indicators */
+  .priority-low {
+    @apply text-green-600 dark:text-green-400;
+  }
+
+  .priority-medium {
+    @apply text-yellow-600 dark:text-yellow-400;
+  }
+
+  .priority-high {
+    @apply text-orange-600 dark:text-orange-400;
+  }
+
+  .priority-critical {
+    @apply text-red-600 dark:text-red-400;
+  }
+}
+
+@layer utilities {
+  /* Custom Focus States */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2;
+    @apply focus:ring-offset-background;
+  }
+
+  /* Smooth Transitions */
+  .transition-smooth {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .transition-smooth-slow {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Mobile Touch Optimizations */
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+
+  .tap-highlight-transparent {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in,
+    .animate-slide-up,
+    .animate-slide-down,
+    .animate-scale-in,
+    .animate-bounce-subtle {
+      animation: none;
+    }
+
+    * {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounceSubtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 1024px) {
+  .sidebar-taskade {
+    width: 100%;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-out;
+  }
+
+  .sidebar-taskade.open {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --sidebar-width: 100vw;
+  }
+
+  .kanban-column {
+    @apply min-h-[400px];
+  }
+
+  .kanban-card {
+    @apply hover:scale-100 hover:translate-y-0;
+  }
+}
+
+/* Dark mode specific improvements */
+.dark {
+  color-scheme: dark;
+}
+
+.dark .loading-shimmer::after {
+  @apply bg-gradient-to-r from-transparent via-white/10 to-transparent;
+}
